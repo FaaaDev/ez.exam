@@ -22,8 +22,8 @@ This is the frontend part of the **MathQuest** project — a Duolingo-style inte
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/mathquest-frontend.git
-cd mathquest-frontend
+git clone https://github.com/FaaaDev/ez.exam.git
+cd ez.exam
 ```
 
 ### 2. Install Dependencies
