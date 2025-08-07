@@ -4,7 +4,7 @@
 This is the frontend part of the **MathQuest** project — a Duolingo-style interactive math learning platform for teenagers. It is built using **React.js** with a mobile-first responsive design and connects to a FastAPI backend.
 
 ---
-###Live Demo: Coming soon
+Live Demo: Coming soon
 ---
 
 ## 📦 Tech Stack
@@ -22,8 +22,8 @@ This is the frontend part of the **MathQuest** project — a Duolingo-style inte
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/your-username/mathquest-frontend.git
-cd mathquest-frontend
+git clone https://github.com/FaaaDev/ez.exam.git
+cd ez.exam
 ```
 
 ### 2. Install Dependencies
