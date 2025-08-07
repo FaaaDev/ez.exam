@@ -24,18 +24,17 @@ export default function Quiz() {
   const lesson = useSelector((state: RootState) => state.lesson);
   const navigate = useNavigate();
 
-  const parsedKey = key ? atob(key) : "";
-  const realKey: { atempId: string; lessonId: number; problemId: number } =
-    JSON.parse(parsedKey);
-
   useEffect(() => {
     checkQuestion();
     setIsAnimating(true);
-  }, []);
+  }, [key]);
 
   const checkQuestion = async () => {
+    const parsedKey = key ? atob(key) : "";
+    const realKey: { atempId: string; lessonId: number; problemId: number } =
+      JSON.parse(parsedKey);
     dispatch(setLoadingLesson(true));
-    
+
     if (
       lesson.detail &&
       lesson.detail.id == realKey.lessonId &&
@@ -46,6 +45,8 @@ export default function Quiz() {
       const index = lesson.detail.problems.findIndex(
         (problem) => problem.id === realKey.problemId
       );
+
+      console.log(index);
 
       setCurrentQuestion(lesson.detail.problems[index] || null);
       setQuestionIndex(index);
@@ -66,8 +67,13 @@ export default function Quiz() {
   };
 
   const handleNext = async () => {
-    dispatch(setLoadingLesson(true));
     if (selectedOption === null) return;
+
+    const parsedKey = key ? atob(key) : "";
+    const realKey: { atempId: string; lessonId: number; problemId: number } =
+      JSON.parse(parsedKey);
+
+    dispatch(setLoadingLesson(true));
 
     await submitAnswer(realKey.lessonId, {
       attempt_id: realKey.atempId,
@@ -84,7 +90,8 @@ export default function Quiz() {
           lessonId: realKey.lessonId,
           problemId: lesson.detail.problems[questionIndex + 1].id,
         });
-        window.location.href = `/quiz/${btoa(key)}`;
+        // window.location.href = `/quiz/${btoa(key)}`;
+        navigate(`/quiz/${btoa(key)}`);
       } else {
         // Quiz completed - redirect to results
 
@@ -93,7 +100,7 @@ export default function Quiz() {
         );
       }
       dispatch(setLoadingLesson(false));
-    }, 300);
+    }, 500);
   };
 
   return lesson.isLoading ? (
@@ -115,8 +122,7 @@ export default function Quiz() {
             <div className="flex-1 mx-4">
               <Progress
                 value={
-                  (questionIndex+1 / (lesson.detail?.problems.length || 0)) *
-                  100
+                  ((questionIndex + 1) / (lesson.detail?.problems.length || 0)) * 100
                 }
                 className="h-2"
                 color={"bg-[#ff6b35]"}
@@ -135,7 +141,7 @@ export default function Quiz() {
 
           <div className="flex items-center justify-between mt-5">
             <span className="text-sm font-medium text-gray-600">
-              Question {questionIndex+1} / {lesson.detail?.problems.length}
+              Question {questionIndex + 1} / {lesson.detail?.problems.length}
             </span>
             <Badge className="bg-blue-100 text-blue-800">
               {lesson.detail?.title}
