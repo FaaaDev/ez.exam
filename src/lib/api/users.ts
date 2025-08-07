@@ -12,7 +12,7 @@ export interface UserData {
 }
 
 export async function getProfile(): Promise<UserData> {
-  const res = await api.get<UserData>("/api/profile/");
+  const res = await api.get<UserData>("/api/profiles/");
 
   return res.data;
 }
